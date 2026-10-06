@@ -1,0 +1,18 @@
+services:
+  api:
+    build: .
+    ports: ["8006:8006"]
+    volumes: ["./results:/app/results", "./configs:/app/configs:ro", "./datasets:/app/datasets:ro"]
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      HOSTED_BASE_URL: ${HOSTED_BASE_URL:-https://api.openai.com/v1}
+  dashboard:
+    build: .
+    command: ["streamlit", "run", "dashboard.py", "--server.address=0.0.0.0"]
+    ports: ["8501:8501"]
+    volumes: ["./results:/app/results:ro"]
+  mock-model:
+    build: .
+    command: ["uvicorn", "inference_lab.mock_server:app", "--host", "0.0.0.0", "--port", "9006"]
+    ports: ["9006:9006"]
+

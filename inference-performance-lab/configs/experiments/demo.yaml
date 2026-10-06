@@ -1,0 +1,15 @@
+name: reproducible-demo
+dataset: datasets/demo.jsonl
+repetitions: 3
+warmup_requests: 1
+concurrency: [1, 4]
+max_output_tokens: 64
+targets:
+  - name: local-mock
+    base_url: http://mock-model:9006/v1
+    model: deterministic-demo-model
+    runtime: openai-compatible-mock
+    device: cpu
+    quantization: simulated-int4
+    hourly_cost_usd: 0.05
+

@@ -1,0 +1,24 @@
+name: hosted-versus-local
+dataset: datasets/demo.jsonl
+repetitions: 5
+warmup_requests: 5
+concurrency: [1, 4, 16]
+max_output_tokens: 128
+targets:
+  - name: hosted
+    base_url: https://api.openai.com/v1
+    model: replace-with-hosted-model
+    api_key_env: OPENAI_API_KEY
+    runtime: hosted-api
+    device: hosted
+    quantization: provider-managed
+    input_cost_per_million: 0
+    output_cost_per_million: 0
+  - name: local-vllm
+    base_url: http://host.docker.internal:8001/v1
+    model: replace-with-local-model
+    runtime: vllm
+    device: gpu
+    quantization: awq-int4
+    hourly_cost_usd: 1.20
+

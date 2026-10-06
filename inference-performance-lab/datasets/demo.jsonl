@@ -1,0 +1,3 @@
+{"id":"qa-001","task":"qa","prompt":"What is the capital of France? Answer with only the city.","reference":"Paris"}
+{"id":"extract-001","task":"structured_extraction","prompt":"Extract this invoice as JSON with customer, amount, and invoice_date: Acme owes $1250 dated 2026-09-01.","reference":{"customer":"Acme","amount":1250,"invoice_date":"2026-09-01"}}
+
